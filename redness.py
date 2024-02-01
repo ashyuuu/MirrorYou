@@ -1,14 +1,9 @@
 class redness:
-    
+
     def __init__(self, image):
-        self.image = image
-        self.redness = self.resize_image()
-        self.redness = self.skin_segmentation(self.redness)
-        self.redness = self.redness_method(self.redness)
-        self.redness = self.gaussian_filter(self.redness)
-        self.redness = self.canny_method(self.redness)
+        self.image = self.canny_method(self.gaussian_filter(self.redness_method(self.skin_segmentation(self.resize_image(image)))))
     
-    def resize_image(self):
+    def resize_image(self, image):
         # Resize Image: resize when its number of rows or columns exceeds 500 pixels
             # if number of rows exceeds 500 and is longer than columns
                 # reduced to 480 pixels
