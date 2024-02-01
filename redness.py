@@ -1,5 +1,4 @@
-# Resize Image
-    # resize when its number of rows or columns exceeds 500 pixels
+# Resize Image: resize when its number of rows or columns exceeds 500 pixels
     # if number of rows exceeds 500 and is longer than columns
         # reduced to 480 pixels
         # adjust columns accordingly
@@ -7,8 +6,7 @@
         # reduced to 480 pixels
         # adjust rows accordingly
 
-# Skin Segmentation
-    # separating the skin from the background
+# Skin Segmentation: separating the skin from the background
     # using K-Means in HSV color space
     # converted to HSV color space (HSV Image)
     # segmented according to a threshold value (Segmented HSV Image)
@@ -22,7 +20,7 @@
     # highest number of members (Skin Image) = skin objects taken
         # assuming that the skin is the most dominant color in the image
 
-# Redness Method
+# Redness Method: calculating the redness value of each pixel
     # First obtain the RGB value of each pixel
     # Redness value of each pixel = max{0, (2R-(G+B)/R)}^2
         # R, G, B are the RGB values of the pixel
@@ -31,10 +29,9 @@
     # Each pixel with redness value greater than the threshold is considered as a red pixel
         # Redness Candidate Image Obtained
 
-# Gaussian Filter
+# Gaussian Filter: smoothing and reducing noise
     # Apply Gaussian filter to the Redness Candidate Image
         # Standard deviation = 0.5
-        # Smoother and Reduce Noise
         # Gaussian Filtered Image Obtained
     # Gaussian Redness 1 Image
         # If pixel value = 76 in the Gaussian Filtered Image
