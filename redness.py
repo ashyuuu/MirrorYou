@@ -1,4 +1,4 @@
-import PhotoGallery
+import cv2
 
 class redness:
 
@@ -158,6 +158,4 @@ class redness:
         # Canny Method: Marks redness objects obtained from the Hue Eliminated Image
             # Detect edge pixels of each redness objects in Hue Eliminated Image
             # Change the intensity value of those edge pixels to red
-        
-        
-        pass
+        return cv2.Canny(image, 50, 150)
