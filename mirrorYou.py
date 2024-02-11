@@ -1,20 +1,28 @@
 from PhotoGallery import PhotoGallery
 from Temperature import Temperature
+from redness import redness
 import os
 import tkinter as tk
+from PIL import Image
+
 
 class mirrorYou:
     def __init__(self):
         root = tk.Tk()
-        self.temp = Temperature()
-        self.gallery = PhotoGallery(root)
+        image = tk.Image()
+        # self.temp = Temperature()
+        # self.gallery = PhotoGallery(root)
+        self.redness = redness(image)
         
 if __name__ == "__main__":
     mirror = mirrorYou()
 
-    mirror.temp.getTemperature()
-    mirror.temp.setTemperature()
-    mirror.temp.getTemperature()
+    image = Image.open("Redness_Photo_1.png")
+    mirror.redness(image)
+
+    # mirror.temp.getTemperature()
+    # mirror.temp.setTemperature()
+    # mirror.temp.getTemperature()
 
     # mirror.gallery.addPhoto("celine", os.path.join(os.getcwd(), "photos/celine.jpg"))
     # mirror.gallery.addPhoto("chaesoo", os.path.join(os.getcwd(), "photos/chaesoo.jpg"))
