@@ -1,0 +1,33 @@
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+# Define your CNN model architecture
+def create_model(input_shape):
+    model = models.Sequential([
+        layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
+        layers.MaxPooling2D((2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D((2, 2)),
+        layers.Conv2D(128, (3, 3), activation='relu'),
+        layers.MaxPooling2D((2, 2)),
+        layers.Flatten(),
+        layers.Dense(128, activation='relu'),
+        layers.Dense(1, activation='sigmoid')  # Binary classification output
+    ])
+    return model
+
+# Load and preprocess your dataset (X_train, y_train, X_val, y_val)
+
+# Define input shape
+input_shape = (image_height, image_width, num_channels)  # Adjust these according to your images
+
+# Create and compile the model
+model = create_model(input_shape)
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+# Train the model
+history = model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_val, y_val))
+
+# Evaluate the model on the test set
+test_loss, test_acc = model.evaluate(X_test, y_test)
+print("Test Accuracy:", test_acc)
