@@ -9,22 +9,21 @@ from PIL import Image
 class mirrorYou:
     def __init__(self):
         root = tk.Tk()
-        image = tk.Image()
+        # image = tk.Image()
         # self.temp = Temperature()
-        # self.gallery = PhotoGallery(root)
-        self.redness = redness(image)
+        self.gallery = PhotoGallery(root)
+        #   self.redness = redness(image)
+        root.mainloop()
         
 if __name__ == "__main__":
     mirror = mirrorYou()
-
-    image = Image.open("Redness_Photo_1.png")
-    mirror.redness(image)
+    # image = Image.open("Redness_Photo_1.png")
+    # mirror.redness(image)
 
     # mirror.temp.getTemperature()
     # mirror.temp.setTemperature()
     # mirror.temp.getTemperature()
-
-    # mirror.gallery.addPhoto("celine", os.path.join(os.getcwd(), "photos/celine.jpg"))
+    
     # mirror.gallery.addPhoto("chaesoo", os.path.join(os.getcwd(), "photos/chaesoo.jpg"))
     # mirror.gallery.addPhoto("concert1", os.path.join(os.getcwd(), "photos/concert1.jpg"))
     # mirror.gallery.addPhoto("fireworks", os.path.join(os.getcwd(), "photos/fireworks.jpg"))
@@ -41,4 +40,4 @@ if __name__ == "__main__":
     # mirror.gallery.addPhoto("ting", os.path.join(os.getcwd(), "photos/ting.jpg"))
     # mirror.gallery.addPhoto("verdy", os.path.join(os.getcwd(), "photos/verdy.jpg"))
     # mirror.gallery.addPhoto("yuqi", os.path.join(os.getcwd(), "photos/yuqi.jpg"))
-    # mirror.gallery.displayImages()    
+

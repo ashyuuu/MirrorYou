@@ -8,15 +8,16 @@ class PhotoGallery:
         self.root = root
         self.root.title("Photo Gallery")
         self.photoArray = []
-        self.image_folder = "photos"  # Path to your image folder
+        self.image_folder = "photos/train/red"  # Path to your image folder
         self.loadImage()
+
         self.canvas = tk.Canvas(self.root, width = 620, height = 700)
         self.scrollbar = tk.Scrollbar(self.root, orient="vertical", command=self.canvas.yview)
         self.gallery_frame = tk.Frame(self.canvas)
         self.displayImages()
+
         self.canvas.create_window((0, 0), window=self.gallery_frame, anchor="nw")
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
-
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar.pack(side="right", fill="y")
 
@@ -112,3 +113,4 @@ class PhotoGallery:
 
     def on_mousewheel(self, event):
         self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
