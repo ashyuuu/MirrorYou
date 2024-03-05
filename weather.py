@@ -1,4 +1,7 @@
+import tkinter as tk
+from tkinter import messagebox
 import requests
+import matplotlib.pyplot as plt
 
 def get_weather(api_key, city):
     base_url = "http://api.openweathermap.org/data/2.5/weather"
@@ -19,21 +22,46 @@ def get_weather(api_key, city):
         }
         return weather_info
     else:
-        print("Failed to fetch weather data:", data["message"])
+        messagebox.showerror("Error", f"Failed to fetch weather data: {data['message']}")
         return None
 
-def main():
+def get_weather_forecast():
     api_key = "d3d4325ff5f6d3a19c6d2108de9bdf48"
-    city = "Irvine"  # Replace with your desired city
+    city = "Irvine"
     weather = get_weather(api_key, city)
     if weather:
-        print(f"Weather in {city}:")
-        print(f"Temperature: {weather['temperature']}°C")
-        print(f"Description: {weather['description']}")
-        print(f"Humidity: {weather['humidity']}%")
-        print(f"Wind Speed: {weather['wind_speed']} m/s")
-    else:
-        print("Weather data not available.")
+        # Create a new window for displaying weather information
+        forecast_window = tk.Toplevel(root)
+        forecast_window.title(f"Weather Forecast for {city}")
 
-if __name__ == "__main__":
-    main()
+        # Create subplots for temperature, humidity, and wind speed
+        fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+
+        # Plot temperature, humidity, and wind speed
+        labels = ['Temperature', 'Humidity', 'Wind Speed']
+        values = [weather['temperature'], weather['humidity'], weather['wind_speed']]
+        axs[0].bar(labels, values)
+        axs[0].set_title('Weather Metrics')
+        axs[0].set_ylabel('Value')
+
+        # Plot weather description
+        axs[1].pie([1], labels=[weather['description']], autopct='%1.1f%%')
+        axs[1].set_title('Weather Description')
+
+        # Show plots
+        plt.tight_layout()
+        plt.show()
+
+    else:
+        messagebox.showerror("Error", "Weather data not available.")
+
+# Create the main Tkinter window
+root = tk.Tk()
+root.title("Weather Forecast")
+
+# Create a button to get weather forecast
+get_forecast_button = tk.Button(root, text="Get Weather Forecast", command=get_weather_forecast)
+get_forecast_button.pack(pady=20)
+
+# Run the Tkinter main loop
+root.mainloop()
