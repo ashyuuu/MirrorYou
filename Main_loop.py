@@ -37,7 +37,10 @@ def switch(led):
 try: 
     print("ready for press")
     while True:
+        # Main Menu Mode
         if page == 0:
+            # TODO: display weather forecast
+
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 1
                 print("Photo gallery")
@@ -54,7 +57,9 @@ try:
                 page = 4
                 print("Mirror")
             time.sleep(0.1)
+        # Photo Gallery Mode
         if page == 1:
+            # TODO: Show photo gallery
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 0
                 print("Back to Menu")
@@ -69,9 +74,12 @@ try:
             time.sleep(0.1)
             if GPIO.input(button_pin_green) == GPIO.LOW:
                 #select
+                page = 5
                 print("select")
-            time.sleep(0.1)      
+            time.sleep(0.1)   
+        # Temperature Mode    
         if page == 2:
+            # TODO: Show most recent temperature
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 0
                 print("Back to Menu")
@@ -80,7 +88,9 @@ try:
                 #record temperature
                 print("temperature")
             time.sleep(0.1)
+        # Camera Mode
         if page == 3:
+            # TODO: Turn screen black
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 0
                 print("Back to Menu")
@@ -89,7 +99,22 @@ try:
                 #take picture
                 print("take picture")
             time.sleep(0.1)
-        
+        # Mirror Mode
+        if page == 4:
+            # TODO: Turn screen black
+            if GPIO.input(button_pin_blue) == GPIO.LOW:
+                page = 0
+                print("Back to Menu")
+        # Pop Up Window
+        if page == 5:
+            # TODO: Show photo
+            if GPIO.input(button_pin_blue) == GPIO.LOW:
+                page = 1
+                print("Back to Gallery")
+            time.sleep(0.1)
+            if GPIO.input(button_pin_yellow1) == GPIO.LOW:
+                # analyze and show most recent temperature
+                print("analyze")
             
 
 except KeyboardInterrupt:
