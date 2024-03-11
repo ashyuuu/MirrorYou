@@ -1,0 +1,86 @@
+import tensorflow as tf
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras import layers, models
+
+# Define data directories
+train_dir = '/Users/li-yuho/Documents/GitHub/MirrorYou/photos/train'
+validation_dir = '/Users/li-yuho/Documents/GitHub/MirrorYou/photos/valid'
+test_dir = '/Users/li-yuho/Documents/GitHub/MirrorYou/photos/test'
+
+# Define image dimensions and batch size
+image_height = 128
+image_width = 128
+batch_size = 32
+
+# Data preprocessing and augmentation
+train_datagen = ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=20,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
+
+validation_datagen = ImageDataGenerator(rescale=1./255)
+
+# Generate batches of augmented data
+train_generator = train_datagen.flow_from_directory(
+    train_dir,
+    target_size=(image_height, image_width),
+    batch_size=batch_size,
+    class_mode='binary'
+)
+
+validation_generator = validation_datagen.flow_from_directory(
+    validation_dir,
+    target_size=(image_height, image_width),
+    batch_size=batch_size,
+    class_mode='binary'
+)
+
+# Define your CNN model
+def create_model(input_shape):
+    model = models.Sequential([
+        layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
+        layers.MaxPooling2D((2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D((2, 2)),
+        layers.Conv2D(128, (3, 3), activation='relu'),
+        layers.MaxPooling2D((2, 2)),
+        layers.Flatten(),
+        layers.Dense(128, activation='relu'),
+        layers.Dense(1, activation='sigmoid')
+    ])
+    return model
+
+# Define input shape
+input_shape = (image_height, image_width, 3)  # Assuming RGB images
+
+# Create and compile the model
+model = create_model(input_shape)
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.save("model")
+
+# Train the model
+history = model.fit(
+    train_generator,
+    steps_per_epoch=train_generator.samples // batch_size,
+    epochs=10,
+    validation_data=validation_generator,
+    validation_steps=validation_generator.samples // batch_size
+)
+
+# Evaluate the model on the test set
+test_generator = validation_datagen.flow_from_directory(
+    test_dir,
+    target_size=(image_height, image_width),
+    batch_size=batch_size,
+    class_mode='binary'
+)
+
+test_loss, test_acc = model.evaluate(test_generator)
+print("Test Accuracy:", test_acc)
+
