@@ -1,6 +1,7 @@
 from PhotoGallery import PhotoGallery
 from Temperature import Temperature
 from redness import redness
+from MirrorMode import MirrorMode
 import os
 import tkinter as tk
 from PIL import Image
@@ -11,12 +12,14 @@ class mirrorYou:
         root = tk.Tk()
         # image = tk.Image()
         # self.temp = Temperature()
-        self.gallery = PhotoGallery(root)
-        #   self.redness = redness(image)
+        # self.gallery = PhotoGallery(root)
+        # self.redness = redness(image)
+        self.mirrorMode = MirrorMode()
         root.mainloop()
         
 if __name__ == "__main__":
     mirror = mirrorYou()
+    mirror.mirrorMode.turnMirrorOn()
     # image = Image.open("Redness_Photo_1.png")
     # mirror.redness(image)
 
