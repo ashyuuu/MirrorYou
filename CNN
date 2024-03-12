@@ -1,11 +1,11 @@
 import tensorflow as tf
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras import layers, models
+from keras.preprocessing.image import ImageDataGenerator
+from keras import layers, models
 
 # Define data directories
-train_dir = '/Users/li-yuho/Documents/GitHub/MirrorYou/photos/train'
-validation_dir = '/Users/li-yuho/Documents/GitHub/MirrorYou/photos/valid'
-test_dir = '/Users/li-yuho/Documents/GitHub/MirrorYou/photos/test'
+train_dir = '/Users/Ashley/Documents/GitHub/MirrorYou/photos/train'
+validation_dir = '/Users/Ashley/Documents/GitHub/MirrorYou/photos/valid'
+test_dir = '/Users/Ashley/Documents/GitHub/MirrorYou/photos/test'
 
 # Define image dimensions and batch size
 image_height = 128

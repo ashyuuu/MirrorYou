@@ -1,6 +1,6 @@
 import numpy as np
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
+from keras.models import load_model
+from keras.preprocessing import image
 
 # Load the trained model
 model = load_model('model')
@@ -26,6 +26,15 @@ def detect_redness(image_path):
     return redness_detected
 
 # Example usage:
-image_path = '/Users/li-yuho/Documents/GitHub/MirrorYou/photos/train/not_red/right_side5.jpg'
+image_path = '/Users/Ashley/Documents/GitHub/MirrorYou/twice.png'
 is_redness_detected = detect_redness(image_path)
 print("Redness Detected:", is_redness_detected)
+
+image_path = '/Users/Ashley/Documents/GitHub/MirrorYou/photos/test/red/acne-18-_png.rf.a478012afc375620f9f760c4a3a302d3.jpg'
+is_redness_detected = detect_redness(image_path)
+print("Redness Detected:", is_redness_detected)
+
+image_path = '/Users/Ashley/Documents/GitHub/MirrorYou/photos/test/not_red/11.jpg'
+is_redness_detected = detect_redness(image_path)
+print("Redness Detected:", is_redness_detected)
+

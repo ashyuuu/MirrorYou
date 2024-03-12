@@ -3,65 +3,72 @@ from tkinter import messagebox
 import requests
 import matplotlib.pyplot as plt
 
-def get_weather(api_key, city):
-    base_url = "http://api.openweathermap.org/data/2.5/weather"
-    params = {
-        "q": city,
-        "appid": api_key,
-        "units": "metric"  # Use "imperial" for Fahrenheit
-    }
-    response = requests.get(base_url, params=params)
-    data = response.json()
+class Weather:
+    def __init__(self):
+        self.root = tk.Tk()
 
-    if data["cod"] == 200:
-        weather_info = {
-            "temperature": data["main"]["temp"],
-            "description": data["weather"][0]["description"],
-            "humidity": data["main"]["humidity"],
-            "wind_speed": data["wind"]["speed"]
+        # Create the main Tkinter window
+        
+        self.root.title("Weather Forecast")
+
+        # Create a button to get weather forecast
+        get_forecast_button = tk.Button(self.root, text="Get Weather Forecast", command=self.get_weather_forecast)
+        get_forecast_button.pack(pady=20)
+
+        # Run the Tkinter main loop
+        self.root.mainloop()
+
+    def get_weather(self,api_key, city):
+        base_url = "http://api.openweathermap.org/data/2.5/weather"
+        params = {
+            "q": city,
+            "appid": api_key,
+            "units": "metric"  # Use "imperial" for Fahrenheit
         }
-        return weather_info
-    else:
-        messagebox.showerror("Error", f"Failed to fetch weather data: {data['message']}")
-        return None
+        response = requests.get(base_url, params=params)
+        data = response.json()
 
-def get_weather_forecast():
-    api_key = "d3d4325ff5f6d3a19c6d2108de9bdf48"
-    city = "Irvine"
-    weather = get_weather(api_key, city)
-    if weather:
-        # Create a new window for displaying weather information
-        forecast_window = tk.Toplevel(root)
-        forecast_window.title(f"Weather Forecast for {city}")
+        if data["cod"] == 200:
+            weather_info = {
+                "temperature": data["main"]["temp"],
+                "description": data["weather"][0]["description"],
+                "humidity": data["main"]["humidity"],
+                "wind_speed": data["wind"]["speed"]
+            }
+            return weather_info
+        else:
+            messagebox.showerror("Error", f"Failed to fetch weather data: {data['message']}")
+            return None
 
-        # Create subplots for temperature, humidity, and wind speed
-        fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+    def get_weather_forecast(self):
+        api_key = "d3d4325ff5f6d3a19c6d2108de9bdf48"
+        city = "Irvine"
+        weather = self.get_weather(api_key, city)
+        if weather:
+            # Create a new window for displaying weather information
+            forecast_window = tk.Toplevel(self.root)
+            forecast_window.title(f"Weather Forecast for {city}")
 
-        # Plot temperature, humidity, and wind speed
-        labels = ['Temperature', 'Humidity', 'Wind Speed']
-        values = [weather['temperature'], weather['humidity'], weather['wind_speed']]
-        axs[0].bar(labels, values)
-        axs[0].set_title('Weather Metrics')
-        axs[0].set_ylabel('Value')
+            # Create subplots for temperature, humidity, and wind speed
+            fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 
-        # Plot weather description
-        axs[1].pie([1], labels=[weather['description']], autopct='%1.1f%%')
-        axs[1].set_title('Weather Description')
+            # Plot temperature, humidity, and wind speed
+            labels = ['Temperature', 'Humidity', 'Wind Speed']
+            values = [weather['temperature'], weather['humidity'], weather['wind_speed']]
+            axs[0].bar(labels, values)
+            axs[0].set_title('Weather Metrics')
+            axs[0].set_ylabel('Value')
 
-        # Show plots
-        plt.tight_layout()
-        plt.show()
+            # Plot weather description
+            axs[1].pie([1], labels=[weather['description']], autopct='%1.1f%%')
+            axs[1].set_title('Weather Description')
 
-    else:
-        messagebox.showerror("Error", "Weather data not available.")
+            # Show plots
+            plt.tight_layout()
+            plt.show()
 
-# Create the main Tkinter window
-root = tk.Tk()
-root.title("Weather Forecast")
+        else:
+            messagebox.showerror("Error", "Weather data not available.")
 
-# Create a button to get weather forecast
-get_forecast_button = tk.Button(root, text="Get Weather Forecast", command=get_weather_forecast)
-get_forecast_button.pack(pady=20)
 
-# Run the Tkinter main loop
-root.mainloop()
+    

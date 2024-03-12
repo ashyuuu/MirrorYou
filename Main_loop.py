@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import mirrorYou
 
 GPIO.setmode(GPIO.BCM)
 button_pin_blue = 22
@@ -16,23 +17,7 @@ GPIO.setup(button_pin_yellow2, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 # 0: main menu, 1: photo gallery, 2: temperature, 3: photo, 4: mirror 5: popup
 page = 0
-
-def switch(led):
-    if GPIO.input(button_pin_blue) == GPIO.LOW:
-        print("blue")
-    time.sleep(0.1)
-    if GPIO.input(button_pin_yellow1) == GPIO.LOW:
-        print("yellow1")
-    time.sleep(0.1)
-    if GPIO.input(button_pin_red) == GPIO.LOW:
-        print("red")
-    time.sleep(0.1)
-    if GPIO.input(button_pin_green) == GPIO.LOW:
-        print("green")
-    time.sleep(0.1)
-    if GPIO.input(button_pin_yellow2) == GPIO.LOW:
-        print("yellow2")
-    time.sleep(0.1)    
+mirror = mirrorYou.mirrorYou() 
 
 try: 
     print("ready for press")
@@ -40,6 +25,7 @@ try:
         # Main Menu Mode
         if page == 0:
             # TODO: display weather forecast
+            mirror.turnOnWeather()
 
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 1
@@ -57,9 +43,12 @@ try:
                 page = 4
                 print("Mirror")
             time.sleep(0.1)
+
         # Photo Gallery Mode
         if page == 1:
             # TODO: Show photo gallery
+            mirror.turnOnPhotoGallery()
+
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 0
                 print("Back to Menu")
@@ -76,10 +65,13 @@ try:
                 #select
                 page = 5
                 print("select")
-            time.sleep(0.1)   
+            time.sleep(0.1)  
+
         # Temperature Mode    
         if page == 2:
             # TODO: Show most recent temperature
+            mirror.turnOnTemperature()
+
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 0
                 print("Back to Menu")
@@ -88,9 +80,12 @@ try:
                 #record temperature
                 print("temperature")
             time.sleep(0.1)
+
         # Camera Mode
         if page == 3:
             # TODO: Turn screen black
+            mirror.turnOnMirrorMode()
+
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 0
                 print("Back to Menu")
@@ -99,12 +94,16 @@ try:
                 #take picture
                 print("take picture")
             time.sleep(0.1)
+
         # Mirror Mode
         if page == 4:
             # TODO: Turn screen black
+            mirror.turnOnMirrorMode()
+
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 0
                 print("Back to Menu")
+
         # Pop Up Window
         if page == 5:
             # TODO: Show photo
