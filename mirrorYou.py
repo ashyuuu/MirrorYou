@@ -3,6 +3,7 @@ from Temperature import Temperature
 from redness import redness
 from weather import Weather
 from MirrorMode import MirrorMode
+from Menu import Menu
 import os
 import tkinter as tk
 from PIL import Image
@@ -11,6 +12,7 @@ from PIL import Image
 class mirrorYou:
     def __init__(self):
         self.root = tk.Tk()
+
         # image = tk.Image()
         # self.redness = redness(image)
         # self.root.mainloop()
@@ -34,6 +36,11 @@ class mirrorYou:
         # activate weather
         self.weather = Weather()
         # self.root.mainloop()
+
+    def backToMainMenu(self):
+        # back to main menu
+        self.menu = Menu()
+        # self.root.destroy()
         
 if __name__ == "__main__":
     mirror = mirrorYou()
