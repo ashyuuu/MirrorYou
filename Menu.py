@@ -74,11 +74,14 @@ class Menu:
         gallery_button = tk.Button(buttons_frame, text="Photo Gallery & Analysis (Blue Button)", command=self.show_gallery)
         gallery_button.pack(side="left", padx=10)
 
-        temperature_button = tk.Button(buttons_frame, text="temperature (Yellow Button)", command=self.show_weather)
+        temperature_button = tk.Button(buttons_frame, text="Temperature (Yellow Button)", command=self.show_weather)
         temperature_button.pack(side="left", padx=10)
 
         camera_button = tk.Button(buttons_frame, text="Take a picture (Red Button)", command=self.perform_analysis)
-        analysis_button.pack(side="left", padx=10)
+        camera_button.pack(side="left", padx=10)
 
         mirror_button = tk.Button(buttons_frame, text="Mirror (Green Button)", command=self.do_nothing)
-        blank_button.pack(side="left", padx=10)
+        mirror_button.pack(side="left", padx=10)
+
+if __name__ == "__main__":
+    menu = Menu()
