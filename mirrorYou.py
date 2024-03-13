@@ -40,7 +40,22 @@ class mirrorYou:
     def backToMainMenu(self):
         # back to main menu
         self.menu = Menu()
-        # self.root.destroy()
+
+    def turnOffPhotoGallery(self):
+        # deactivate photo gallery
+        self.gallery.root.destroy()
+
+    def nextPhoto(self):
+        # go to next photo
+        self.gallery.nextPhoto()
+    
+    def prevPhoto(self):
+        # go to previous photo
+        self.gallery.prevPhoto()
+
+    def goBack(self):  
+        # go back to where it was
+        self.root.destroy()
         
 if __name__ == "__main__":
     mirror = mirrorYou()

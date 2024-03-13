@@ -8,6 +8,7 @@ class PhotoGallery:
         self.root = root
         self.root.title("Photo Gallery")
         self.photoArray = []
+        self.currentPhoto = 0
         self.image_folder = "photos/train/red"  # Path to your image folder
         self.loadImage()
 
@@ -80,8 +81,25 @@ class PhotoGallery:
             self.photoArray.append(Image.open(os.path.join(self.image_folder, f)))
         # photo = {"name": name, "path": path, "date": date, "tags": tags}
         # self.photoArray.append(photo)
+            
+    def remove_highlight(self, event):
+        label = event.widget
+        label.config(highlightthickness=0)
+
+    def hover(self, index):
+        # Remove highlight from previous photo
+        self.remove_highlight(None)
+
+        # Highlight the hovered photo
+        label = self.gallery_frame.grid_slaves()[index]
+        label.config(highlightbackground="red", highlightcolor="red", highlightthickness=3)
 
 
+    def nextPhoto(self):
+        self.currentPhoto += 1
+    
+    def prevPhoto(self):
+        self.currentPhoto -= 1
 
     #helper functions below
 

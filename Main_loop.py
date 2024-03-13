@@ -24,6 +24,7 @@ try:
     while True:
         # Main Menu Mode
         if page == 0:
+            mirror.backToMainMenu()
             # TODO: display weather forecast
             mirror.turnOnWeather()
 
@@ -51,14 +52,17 @@ try:
 
             if GPIO.input(button_pin_blue) == GPIO.LOW:
                 page = 0
+                mirror.turnOffPhotoGallery()
                 print("Back to Menu")
             time.sleep(0.1)
             if GPIO.input(button_pin_yellow1) == GPIO.LOW:
                 #left
+                mirror.nextPhoto()
                 print("left")
             time.sleep(0.1)
             if GPIO.input(button_pin_red) == GPIO.LOW:
                 #right
+                mirror.prevPhoto()
                 print("right")
             time.sleep(0.1)
             if GPIO.input(button_pin_green) == GPIO.LOW:
